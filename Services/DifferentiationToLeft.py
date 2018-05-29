@@ -50,7 +50,7 @@ class DifferentiationToLeft:
             fp_xi = (f_xi2 - 4*f_xi1 +3*f_xi) / (2*h)
 
             vjson['result'] = ''
-            vjson['result'] +=  "f'(" + str(x+h*2) + ") = (" + str(f_xi2)  + ' 4*' + str(f_xi1) + '3*' + str(f_xi) + ') / (' + '2*' + str(h) + ') = ' + str(fp_xi)
+            vjson['result'] +=  "f'(" + str(x+h*2) + ") = (" + str(f_xi2)  + ' - 4*' + str(f_xi1) + '+ 3*' + str(f_xi) + ') / (' + '2*' + str(h) + ') = ' + str(fp_xi)
 
             return json.dumps(vjson, indent=4)
 
