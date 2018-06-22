@@ -14,7 +14,7 @@ class Differentiation:
         expression = exp.replace(' ','')
         
         for i in ExpMath.exp_math:
-            expression = expression.replace( i[0] , i[1])
+            expression = expression.replace(i[0] , i[1])
 
         vjson = {}
 
@@ -25,26 +25,26 @@ class Differentiation:
         if not len(expression):
             raise Exception('El tamanio de la expresion es cero.')
         else:
-            vjson['procedure'] = ''
+            vjson['procedure'] = []
             x = x+h
             new_exp = expression.replace('x','('+str(x)+')')
             f_xi1 = eval(new_exp)
-            vjson['procedure'] += 'f(' + str(x) + ') = ' + new_exp + ' = ' + str(f_xi1) + '\n'
+            vjson['procedure'].append('f(' + str(x) + ') = ' + new_exp + ' = ' + str(f_xi1))
 
             x = x-2*h
             new_exp = expression.replace('x','('+str(x)+')')
             f_xi2 = eval(new_exp)
-            vjson['procedure'] += 'f(' + str(x) + ') = ' + new_exp + '=' + str(f_xi2) + '\n'
+            vjson['procedure'].append('f(' + str(x) + ') = ' + new_exp + ' = ' + str(f_xi2))
 
             fp_xi = (f_xi1 - f_xi2) / (2*h)
 
-            vjson['procedure'] = vjson['procedure'].replace('math.', '')
-            vjson['procedure'] = vjson['procedure'].replace('**', '^')
+            vjson['procedure'][0] = vjson['procedure'][0].replace('math.', '').replace('**', '^')
+            vjson['procedure'][1] = vjson['procedure'][1].replace('**', '^').replace('math.', '')
 
             vjson['result'] = ''
             vjson['result'] += "f'(" + str(x+h) + ") = " + '('+ str(f_xi1) +' - ' + str(f_xi2) + ')/(2*'+ str(h) +') = ' + str(fp_xi)
 
-            return json.dumps(vjson, indent=4)
+            return vjson
         
 
 if __name__ == '__main__':
